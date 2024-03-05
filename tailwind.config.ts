@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/views/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -13,8 +14,25 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        blue: "#94bbe9",
+        pink: "#eeaeca",
+      },
+      animation: {
+        shimmer: "shimmer 2s linear infinite",
+      },
+      keyframes: {
+        shimmer: {
+          from: {
+            backgroundPosition: "0 0",
+          },
+          to: {
+            backgroundPosition: "-200% 0",
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
 export default config;
