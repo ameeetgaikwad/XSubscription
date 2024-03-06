@@ -1,11 +1,9 @@
 import Layout from "@/components/Layout/Layout";
 import BuyerNFTList from "@/views/Buyer/components/BuyerNFTList";
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
 import NearWallet from "@/components/NearWallet/NearWallet";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-// import { useAccount } from "wagmi";
 import { useMbWallet } from "@mintbase-js/react";
 
 function MyMembership() {

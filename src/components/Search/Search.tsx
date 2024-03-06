@@ -13,7 +13,6 @@ function Search({ setSubscriptions }: any) {
         const res = await axios.get("/api/subscription/searchSubscription", {
           params: { reg: value },
         });
-        // console.log(res.data.subscriptions);
         setSubscriptions(res.data.subscriptions);
       }
     } catch (e) {
@@ -36,11 +35,6 @@ function Search({ setSubscriptions }: any) {
             onChange={(e) => {
               setValue(e.target.value);
             }}
-            // onKeyDownCapture={(e) => {
-            //   if (e.key === "Enter") {
-            //     // setSubscriptions(value);
-            //   }
-            // }}
           />
         </div>
       </div>

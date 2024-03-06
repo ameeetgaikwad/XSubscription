@@ -8,7 +8,6 @@ function NearWallet() {
     isConnected,
     errorMessage,
   } = useMbWallet();
-  // console.log("chainid", activeAccountId, "selector", selector, "isConnected");
   const handleSignout = async () => {
     try {
       const wallet = await selector.wallet();

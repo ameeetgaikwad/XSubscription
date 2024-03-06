@@ -1,12 +1,10 @@
 import Layout from "@/components/Layout/Layout";
 import NFTBuyCard from "@/components/NFTBuy/NFTBuyCard";
 import Search from "@/components/Search/Search";
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
 import NearWallet from "@/components/NearWallet/NearWallet";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import { useAccount } from "wagmi";
 import { useMbWallet } from "@mintbase-js/react";
 type subscriptionType = {
   NFTAddress: string;

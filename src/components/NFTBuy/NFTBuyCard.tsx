@@ -2,7 +2,6 @@ import { formatContent } from "@/utils/formatContent";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import { useAccount } from "wagmi";
 import { useMbWallet } from "@mintbase-js/react";
 // import { execute, mint, buy } from "@mintbase-js/sdk";
 type Props = {
@@ -21,9 +20,6 @@ function NFTBuyCard({ subscription }: Props) {
   useEffect(() => {}, []);
   const { activeAccountId: account, isConnected, selector } = useMbWallet();
   const { title, symbol, image, price, benifits, NFTAddress } = subscription;
-  // const { writeAsync: mintNFT } = useSubscriptionContractWrite({
-  //   address: NFTAddress,
-  // });
 
   async function buySubscription() {
     setLoading(true);

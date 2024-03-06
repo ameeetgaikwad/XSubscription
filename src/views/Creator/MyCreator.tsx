@@ -1,8 +1,6 @@
 import Layout from "@/components/Layout/Layout";
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
 import NearWallet from "@/components/NearWallet/NearWallet";
 import { useEffect, useRef, useState } from "react";
-// import { useAccount } from "wagmi";
 import { useMbWallet } from "@mintbase-js/react";
 import CreatorNFTList from "./components/CreatorNFTList";
 import axios from "axios";
@@ -17,7 +15,6 @@ function MyCreator() {
   const { activeAccountId: account, isConnected, selector } = useMbWallet();
   const [display, setDisplay] = useState(false);
   const modalRef = useRef(null);
-  // const { writeAsync: deployContract } = useFactoryContractWrite({});
 
   const [title, setTitle] = useState<string>("");
   const [symbol, setSymbol] = useState<string>("");
@@ -39,7 +36,7 @@ function MyCreator() {
       { headers: { "x-api-key": process.env.NEXT_PUBLIC_FLOCK_BOT_API_KEY } }
     );
 
-    return res.data.answer;
+    return res.data.answer + Math.floor(Math.random() * 100);
   }
 
   useEffect(() => {
@@ -110,26 +107,6 @@ function MyCreator() {
       });
       setLoading(false);
       setSuccess(true);
-      // ---
-      // // @ts-ignore
-      // modalRef?.current?.close();
-
-      //   const res = await deployContract({
-      //     args: [account, title, symbol, ethers.parseEther(price)],
-      //   });
-      //   setTimeout(async () => {
-      //     console.log("entered");
-      //     await axios.post("/api/creator/createSubscription", {
-      //       address: account,
-      //       title,
-      //       symbol,
-      //       image,
-      //       price,
-      //       benifits,
-      //     });
-      //     setLoading(false);
-      //     setSuccess(true);
-      //   }, 35000);
     } catch (e) {
       console.log("error at mycreator.tsx", e);
       setLoading(false);
