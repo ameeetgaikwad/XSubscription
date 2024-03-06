@@ -6,7 +6,7 @@ function Header() {
   return (
     <>
       <div>
-        <div className="flex flex-row justify-between pt-5 px-5 w-full">
+        <div className="flex flex-row justify-between pt-0 px-5 w-full">
           <Link href={"/"}>
             <Image src="/images/logo.svg" alt="logo" width={40} height={100} />
           </Link>
