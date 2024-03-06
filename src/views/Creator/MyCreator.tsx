@@ -71,7 +71,7 @@ function MyCreator() {
     if (error) {
       setTimeout(() => {
         setError(false);
-      }, 5000);
+      }, 8000);
     }
   }, [success, error, account]);
 
@@ -80,10 +80,19 @@ function MyCreator() {
     setCurrentBenifit("");
   }
 
+  function clearData() {
+    setTitle("");
+    setSymbol("");
+    setImage("");
+    setPrice("");
+    setBenifits([]);
+  }
+
   async function handleSubmit() {
     setLoading(true);
     try {
       (modalRef.current as any)?.close();
+      clearData();
       const wallet = await selector.wallet();
       console.log("wallet", wallet);
       const contractInstance = await execute(
@@ -294,7 +303,7 @@ function MyCreator() {
                 </svg>
                 <span>
                   Need unique <b>Title</b> for each NFT. Try: BoredMonkey
-                  {Math.random() * 1000 + 1}
+                  {Math.floor(Math.random() * 100 + 1)}
                 </span>
               </div>
             </div>
