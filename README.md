@@ -1,40 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## What is this website about?
+This is an NFT subscriptions marketplace, facilitating creators in minting and listing NFT memberships that unlock various benefits for buyers.
 
-## Getting Started
+## Features
+An NFT subscriptions marketplace is a platform designed to enable creators to mint and list NFT (Non-Fungible Token) memberships. These memberships grant buyers access to exclusive benefits, content, or experiences offered by the creators. Here's an elaboration on how such a marketplace might work:
 
-First, run the development server:
+- Creator Onboarding: The platform would allow creators to sign up and create accounts. They would then be able to mint NFT memberships tied to their content or services.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Minting NFT Memberships: Buyers can mint NFTs that represent memberships of their favourite creator. Each NFT would be unique and securely stored on a blockchain, ensuring ownership and authenticity.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Memberships: Once minted, buyers can take advantage of the benefits associated with each membership tier.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- Buyer Participation: Users interested in accessing the exclusive benefits offered by creators can browse the marketplace and purchase NFT memberships using cryptocurrency.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
