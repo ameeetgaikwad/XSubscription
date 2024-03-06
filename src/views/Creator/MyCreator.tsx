@@ -26,16 +26,19 @@ function MyCreator() {
   const [benifits, setBenifits] = useState<string[]>([]);
   const [currentBenifit, setCurrentBenifit] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingTitle, setLoadingTitle] = useState(false);
+  const [loadingSymbol, setLoadingSymbol] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [subscriptions, setSubscriptions] = useState();
 
   async function generateText(prompt: string) {
     const res = await axios.post(
-      "https://rag-chat-ml-backend-dev.flock.io/chat/conversational_rag_chat",
+      "api/flock/reqData",
       { question: prompt, chat_history: [], knowledge_source_id: "1" },
       { headers: { "x-api-key": process.env.NEXT_PUBLIC_FLOCK_BOT_API_KEY } }
     );
+
     return res.data.answer;
   }
 
@@ -168,11 +171,17 @@ function MyCreator() {
                       />
                       <button
                         onClick={async () => {
+                          setLoadingTitle(true);
                           const ans = await generateText(prompts.TITLE);
+                          setLoadingTitle(false);
                           setTitle(ans);
                         }}
                       >
-                        <AutoAwesomeIcon className="absolute right-6 top-[25%]" />
+                        {loadingTitle ? (
+                          <span className="loading loading-ring loading-md absolute right-6 top-[25%]"></span>
+                        ) : (
+                          <AutoAwesomeIcon className="absolute right-6 top-[25%]" />
+                        )}
                       </button>
                     </div>
                   </label>
@@ -188,11 +197,17 @@ function MyCreator() {
                       />
                       <button
                         onClick={async () => {
+                          setLoadingSymbol(true);
                           const ans = await generateText(prompts.SYMBOL);
+                          setLoadingSymbol(false);
                           setSymbol(ans);
                         }}
                       >
-                        <AutoAwesomeIcon className="absolute right-6 top-[25%]" />
+                        {loadingSymbol ? (
+                          <span className="loading loading-ring loading-md absolute right-6 top-[25%]"></span>
+                        ) : (
+                          <AutoAwesomeIcon className="absolute right-6 top-[25%]" />
+                        )}
                       </button>
                     </div>
                   </label>
