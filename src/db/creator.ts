@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-mongoose.connect(
-  "mongodb+srv://ameeetgaikwad:rRqiBCBHlqI1LAde@cryptopayindia.wsredxt.mongodb.net/BlockBox"
-);
+mongoose.connect(process.env.NEXT_PUBLIC_MONGODB as string);
 const creatorSchema = new mongoose.Schema({
   creatorAddress: { type: String, required: true, unique: true },
   createdSubscriptions: [

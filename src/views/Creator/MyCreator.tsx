@@ -1,18 +1,23 @@
 import Layout from "@/components/Layout/Layout";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
+import NearWallet from "@/components/NearWallet/NearWallet";
 import { useEffect, useRef, useState } from "react";
-import { useAccount } from "wagmi";
-
+// import { useAccount } from "wagmi";
+import { useMbWallet } from "@mintbase-js/react";
 import CreatorNFTList from "./components/CreatorNFTList";
 import axios from "axios";
-import { useFactoryContractWrite } from "@/hooks/useFactory";
+import { execute, deployContract } from "@mintbase-js/sdk";
 import { ethers } from "ethers";
-
+interface DeployContractArgs {
+  name: string;
+  owner: string;
+  symbol: string;
+}
 function MyCreator() {
-  const { address: account, isConnected } = useAccount();
+  const { activeAccountId: account, isConnected, selector } = useMbWallet();
   const [display, setDisplay] = useState(false);
   const modalRef = useRef(null);
-  const { writeAsync: deployContract } = useFactoryContractWrite({});
+  // const { writeAsync: deployContract } = useFactoryContractWrite({});
 
   const [title, setTitle] = useState<string>("");
   const [symbol, setSymbol] = useState<string>("");
@@ -67,25 +72,51 @@ function MyCreator() {
 
   async function handleSubmit() {
     setLoading(true);
-    // @ts-ignore
-    modalRef?.current?.close();
     try {
-      const res = await deployContract({
-        args: [account, title, symbol, ethers.parseEther(price)],
+      (modalRef.current as any)?.close();
+      const wallet = await selector.wallet();
+      console.log("wallet", wallet);
+      const contractInstance = await execute(
+        { wallet },
+        deployContract({
+          factoryContractId: "mintspace2.testnet",
+          name: title,
+          ownerId: account as string,
+          metadata: {
+            symbol: symbol,
+          },
+        })
+      );
+      await axios.post("/api/creator/createSubscription", {
+        address: account,
+        title,
+        symbol,
+        image,
+        price,
+        benifits,
       });
-      setTimeout(async () => {
-        console.log("entered");
-        await axios.post("/api/creator/createSubscription", {
-          address: account,
-          title,
-          symbol,
-          image,
-          price,
-          benifits,
-        });
-        setLoading(false);
-        setSuccess(true);
-      }, 35000);
+      setLoading(false);
+      setSuccess(true);
+      // ---
+      // // @ts-ignore
+      // modalRef?.current?.close();
+
+      //   const res = await deployContract({
+      //     args: [account, title, symbol, ethers.parseEther(price)],
+      //   });
+      //   setTimeout(async () => {
+      //     console.log("entered");
+      //     await axios.post("/api/creator/createSubscription", {
+      //       address: account,
+      //       title,
+      //       symbol,
+      //       image,
+      //       price,
+      //       benifits,
+      //     });
+      //     setLoading(false);
+      //     setSuccess(true);
+      //   }, 35000);
     } catch (e) {
       console.log("error at mycreator.tsx", e);
       setLoading(false);
@@ -184,7 +215,7 @@ function MyCreator() {
             </form>
           </dialog>
           {loading && (
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center z-10">
               <div
                 role="alert"
                 className="alert alert-warning absolute top-5 w-[40%] "
@@ -195,7 +226,7 @@ function MyCreator() {
             </div>
           )}
           {success && (
-            <div className="flex flex-row justify-center ">
+            <div className="flex flex-row justify-center z-10">
               <div
                 role="alert"
                 className="alert alert-success absolute top-5 w-[40%]"
@@ -218,7 +249,7 @@ function MyCreator() {
             </div>
           )}
           {error && (
-            <div className="flex flex-row justify-center ">
+            <div className="flex flex-row justify-center z-10">
               <div
                 role="alert"
                 className="alert alert-error absolute top-5 w-[40%]"
@@ -236,7 +267,10 @@ function MyCreator() {
                     d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <span>Oops! High network congestion.</span>
+                <span>
+                  Need unique <b>Title</b> for each NFT. Try: BoredMonkey
+                  {Math.random() * 1000 + 1}
+                </span>
               </div>
             </div>
           )}
@@ -244,7 +278,7 @@ function MyCreator() {
         </div>
       ) : (
         <div className="flex flex-row justify-center items-center pt-8">
-          <ConnectButton />
+          <NearWallet />
         </div>
       )}
     </Layout>

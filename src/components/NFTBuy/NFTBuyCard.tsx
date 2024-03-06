@@ -1,10 +1,10 @@
-import { useSubscriptionContractWrite } from "@/hooks/useSubscription";
 import { formatContent } from "@/utils/formatContent";
 import axios from "axios";
-import { ethers } from "ethers";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
+import { useMbWallet } from "@mintbase-js/react";
+// import { execute, mint, buy } from "@mintbase-js/sdk";
 type Props = {
   subscription: {
     NFTAddress: string;
@@ -18,43 +18,33 @@ type Props = {
 };
 
 function NFTBuyCard({ subscription }: Props) {
-  const [priceInUSD, setPriceInUSD] = useState<Number>();
-  async function getUSDConversion() {
-    const res = await axios.get("https://api.coinbase.com/v2/exchange-rates");
-    const price = 1 / res.data.data.rates.MATIC.slice(0, 3);
-
-    setPriceInUSD(price);
-  }
-  useEffect(() => {
-    getUSDConversion();
-  }, []);
-  const { address: account } = useAccount();
+  useEffect(() => {}, []);
+  const { activeAccountId: account, isConnected, selector } = useMbWallet();
   const { title, symbol, image, price, benifits, NFTAddress } = subscription;
-  const { writeAsync: mintNFT } = useSubscriptionContractWrite({
-    address: NFTAddress,
-  });
+  // const { writeAsync: mintNFT } = useSubscriptionContractWrite({
+  //   address: NFTAddress,
+  // });
+
   async function buySubscription() {
     setLoading(true);
     try {
-      await mintNFT({
-        args: [account],
-        value: ethers.parseEther(price.toString()),
-      });
+      const wallet = await selector.wallet();
+      // const mintNFT = await execute(
+      //   { wallet },
+      //   mint({
+      //     contractAddress: "bclkj.mintspace2.testnet",
+      //     metadata: { reference: subscription.image },
+      //     ownerId: account as string,
+      //   })
+      // );
       setTimeout(async () => {
-        console.log("entered");
-        try {
-          await axios.post("/api/buyer/buySubscription", {
-            address: account,
-            id: subscription._id,
-          });
-          setLoading(false);
-          setSuccess(true);
-        } catch (e) {
-          console.log("error at NFTBuyCard.tsx", e);
-          setLoading(false);
-          setError(true);
-        }
-      }, 35000);
+        await axios.post("/api/buyer/buySubscription", {
+          address: account,
+          id: subscription._id,
+        });
+        setLoading(false);
+        setSuccess(true);
+      }, 2000);
     } catch (e) {
       console.log("error at NFTBuyCard.tsx", e);
       setLoading(false);
@@ -102,10 +92,7 @@ function NFTBuyCard({ subscription }: Props) {
                   {symbol}
                 </span>
                 <div className="flex flex-col gap-y-1">
-                  <div className="badge badge-neutral">{price}matic</div>
-                  <div className="badge badge-neutral">
-                    ${((priceInUSD as number) * Number(price))?.toFixed(5)}
-                  </div>
+                  <div className="badge badge-neutral">{price} Near</div>
                 </div>
               </div>
             </div>

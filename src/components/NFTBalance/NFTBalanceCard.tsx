@@ -47,10 +47,7 @@ function NFTBalanceCard({ subscription }: Props) {
             <div className="flex flex-row justify-between">
               <span className="badge badge-outline badge-accent">{symbol}</span>
               <div className="flex flex-col gap-y-1">
-                <div className="badge badge-neutral">{price}matic</div>
-                <div className="badge badge-neutral">
-                  ${((priceInUSD as number) * Number(price))?.toFixed(5)}
-                </div>
+                <div className="badge badge-neutral">{price} Near</div>
               </div>
             </div>
           </div>

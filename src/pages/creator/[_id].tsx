@@ -1,10 +1,12 @@
 import Layout from "@/components/Layout/Layout";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
+import NearWallet from "@/components/NearWallet/NearWallet";
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
+import { useMbWallet } from "@mintbase-js/react";
 type subscriptionType = {
   NFTAddress: string;
   title: string;
@@ -15,7 +17,7 @@ type subscriptionType = {
   _id: string;
 };
 function SubscriptionDetail() {
-  const { address: account, isConnected } = useAccount();
+  const { activeAccountId: account, isConnected, selector } = useMbWallet();
   const router = useRouter();
   const { _id } = router.query;
   const [subscriptions, setSubscriptions] = useState<subscriptionType>();
@@ -66,7 +68,7 @@ function SubscriptionDetail() {
                       />
                     ) : (
                       <img
-                        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                        src="https://www.thestreet.com/.image/t_share/MTgyMDU5NDcwMTc4NzU1NzE1/boredape1.jpg"
                         alt="nft"
                         width={300}
                         height={400}
@@ -85,7 +87,7 @@ function SubscriptionDetail() {
                         </span>
                       </div>
                       <p className="text-gray-500 dark:text-gray-400">
-                        {subscriptions?.benifits.map((benifit, _id) => {
+                        {subscriptions?.benifits?.map((benifit, _id) => {
                           return <p key={_id}>{benifit}</p>;
                         })}
                       </p>
@@ -103,7 +105,7 @@ function SubscriptionDetail() {
             </main>
           </div>
         ) : (
-          <ConnectButton />
+          <NearWallet />
         )}
       </Layout>
     </>
