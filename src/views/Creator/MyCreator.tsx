@@ -7,7 +7,7 @@ import { useMbWallet } from "@mintbase-js/react";
 import CreatorNFTList from "./components/CreatorNFTList";
 import axios from "axios";
 import { execute, deployContract } from "@mintbase-js/sdk";
-import { ethers } from "ethers";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 interface DeployContractArgs {
   name: string;
   owner: string;
@@ -29,6 +29,16 @@ function MyCreator() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [subscriptions, setSubscriptions] = useState();
+
+  async function generateText(prompt: string) {
+    const res = await axios.post(
+      "https://rag-chat-ml-backend-dev.flock.io/chat/conversational_rag_chat",
+      { question: prompt, chat_history: [], knowledge_source_id: "1" },
+      { headers: { "x-api-key": process.env.NEXT_PUBLIC_FLOCK_BOT_API_KEY } }
+    );
+    return res.data.answer;
+  }
+
   useEffect(() => {
     if (isConnected) {
       setDisplay(true);
@@ -123,13 +133,16 @@ function MyCreator() {
       setError(true);
     }
   }
-
+  enum prompts {
+    TITLE = "Suggest a random names. It should be one word. It could be derived from animals or nature. Provide only one word in your answer. Example: BoredApeYachtClub",
+    SYMBOL = "Suggest a random names. It should be one word. It could be derived from animals or nature. Provide only one word in your answer. Example: BAYC",
+  }
   return (
     <Layout>
       {display ? (
         <div className="">
           <button
-            className="btn btn-outline absolute right-6 mt-8"
+            className="btn btn-outline absolute right-6 mt-8 border-2 border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition-all duration-200 ease-in-out"
             onClick={() => {
               // @ts-ignore
               modalRef?.current?.showModal();
@@ -146,22 +159,42 @@ function MyCreator() {
                 <div className="flex flex-col gap-y-4 text-white">
                   <label>
                     Title*
-                    <input
-                      className="input input-bordered  w-full max-w-xs"
-                      placeholder="BoredApeYachtClub"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
+                    <div className="relative">
+                      <input
+                        className="input input-bordered  w-full max-w-xs"
+                        placeholder="BoredApeYachtClub"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                      <button
+                        onClick={async () => {
+                          const ans = await generateText(prompts.TITLE);
+                          setTitle(ans);
+                        }}
+                      >
+                        <AutoAwesomeIcon className="absolute right-6 top-[25%]" />
+                      </button>
+                    </div>
                   </label>
 
                   <label>
                     Symbol*
-                    <input
-                      className="input input-bordered  w-full max-w-xs"
-                      placeholder="BAYC"
-                      value={symbol}
-                      onChange={(e) => setSymbol(e.target.value)}
-                    />
+                    <div className="relative">
+                      <input
+                        className="input input-bordered  w-full max-w-xs"
+                        placeholder="BAYC"
+                        value={symbol}
+                        onChange={(e) => setSymbol(e.target.value)}
+                      />
+                      <button
+                        onClick={async () => {
+                          const ans = await generateText(prompts.SYMBOL);
+                          setSymbol(ans);
+                        }}
+                      >
+                        <AutoAwesomeIcon className="absolute right-6 top-[25%]" />
+                      </button>
+                    </div>
                   </label>
                   <label>
                     Image
