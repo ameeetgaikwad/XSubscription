@@ -252,7 +252,7 @@ function MyCreator() {
             <div className="flex flex-row justify-center z-10">
               <div
                 role="alert"
-                className="alert alert-warning absolute top-5 w-[40%] "
+                className="alert alert-warning fixed top-5 w-[40%] "
               >
                 <span className="loading loading-ring loading-lg"></span>
                 <span>Your Subscription is getting ready!</span>
@@ -263,7 +263,7 @@ function MyCreator() {
             <div className="flex flex-row justify-center z-10">
               <div
                 role="alert"
-                className="alert alert-success absolute top-5 w-[40%]"
+                className="alert alert-success fixed top-5 w-[40%]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -286,7 +286,7 @@ function MyCreator() {
             <div className="flex flex-row justify-center z-10">
               <div
                 role="alert"
-                className="alert alert-error absolute top-5 w-[40%]"
+                className="alert alert-error fixed top-5 w-[40%]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
