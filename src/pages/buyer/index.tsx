@@ -5,7 +5,7 @@ function Buyer() {
   return (
     <>
       <Head>
-        <title>Buy Memberships</title>
+        <title>Buy Subscription</title>
       </Head>
       <MyBuyer />
     </>

@@ -101,7 +101,7 @@ function NFTBuyCard({ subscription }: Props) {
           </Link>
           <div className="card-actions justify-end">
             <button onClick={buySubscription} className="btn btn-primary">
-              Buy Membership
+              Buy Subscription
             </button>
           </div>
         </div>
@@ -114,7 +114,7 @@ function NFTBuyCard({ subscription }: Props) {
               className="alert alert-warning absolute top-5 w-[40%] "
             >
               <span className="loading loading-ring loading-lg"></span>
-              <span>Buying your Membership!</span>
+              <span>Buying your Subscription!</span>
             </div>
           </div>
         )}

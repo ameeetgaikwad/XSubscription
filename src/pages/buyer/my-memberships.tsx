@@ -36,7 +36,7 @@ function MyMembership() {
   return (
     <>
       <Head>
-        <title>My Memberships</title>
+        <title>My Subscriptions</title>
       </Head>
       <Layout>
         {display ? (

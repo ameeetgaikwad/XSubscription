@@ -5,7 +5,7 @@ function Creator() {
   return (
     <>
       <Head>
-        <title>Create Memberships</title>
+        <title>Create Subscriptions</title>
       </Head>
       <MyCreator />
     </>

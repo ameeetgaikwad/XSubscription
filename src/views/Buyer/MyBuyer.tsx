@@ -44,11 +44,11 @@ function MyBuyer() {
       {display ? (
         <div>
           <Link
-            className="btn btn-outline absolute right-6 mt-8"
+            className="btn btn-outline absolute right-6 mt-8 border-2 border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition-all duration-200 ease-in-out"
             onClick={() => {}}
             href={"/buyer/my-memberships"}
           >
-            My Memberships
+            My Subscriptions
           </Link>
           <div className="mt-40 sm:mt-20">
             <div className="flex flex-row justify-center">

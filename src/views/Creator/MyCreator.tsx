@@ -135,12 +135,12 @@ function MyCreator() {
               modalRef?.current?.showModal();
             }}
           >
-            Create Membership
+            Create Subscription
           </button>
           <dialog id="my_modal_2" className="modal" ref={modalRef}>
             <div className="modal-box mt-8">
               <p className="flex flex-row justify-center mb-5 text-lg font-bold">
-                Enter NFT membership details
+                Enter NFT Subscription details
               </p>
               <div className="flex flex-row justify-center">
                 <div className="flex flex-col gap-y-4 text-white">
@@ -221,7 +221,7 @@ function MyCreator() {
                 className="alert alert-warning absolute top-5 w-[40%] "
               >
                 <span className="loading loading-ring loading-lg"></span>
-                <span>Your Membership is getting ready!</span>
+                <span>Your Subscription is getting ready!</span>
               </div>
             </div>
           )}
@@ -244,7 +244,7 @@ function MyCreator() {
                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <span>Your Membership has been created</span>
+                <span>Your Subscription has been created</span>
               </div>
             </div>
           )}
