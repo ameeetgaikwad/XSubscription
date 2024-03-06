@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Home() {
   return (
-    <div className="flex flex-col  ">
+    <div className="flex flex-col">
       <main className="flex-1">
         <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
@@ -25,7 +25,7 @@ function Home() {
                     Explore Subscription
                   </Link>
                   <Link
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-fuchsia-900 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-fuchsia-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-600 disabled:pointer-events-none disabled:opacity-50"
+                    className="inline-flex h-10 items-center justify-center rounded-md bg-[#061161] px-8 text-sm font-medium text-white shadow transition-colors hover:bg-indigo-950 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-600 disabled:pointer-events-none disabled:opacity-50"
                     href="/creator"
                   >
                     Create Subscription
