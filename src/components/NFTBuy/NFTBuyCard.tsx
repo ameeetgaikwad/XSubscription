@@ -3,6 +3,8 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMbWallet } from "@mintbase-js/react";
+import { mbjs, mint, execute } from "@mintbase-js/sdk";
+// import { uploadFile } from "@mintbase-js/storage";
 // import { execute, mint, buy } from "@mintbase-js/sdk";
 type Props = {
   subscription: {
@@ -21,26 +23,36 @@ function NFTBuyCard({ subscription }: Props) {
   const { activeAccountId: account, isConnected, selector } = useMbWallet();
   const { title, symbol, image, price, benifits, NFTAddress } = subscription;
 
+  mbjs.config({ network: "testnet" });
+
   async function buySubscription() {
     setLoading(true);
     try {
+      // const metadata = {
+      //   title: "Storage Guide",
+      //   media: file,
+      // };
+      // const uploadResult = await uploadFile(file as File);
+      // console.log("https://arweave.net/" + uploadResult.id);
+
       const wallet = await selector.wallet();
-      // const mintNFT = await execute(
-      //   { wallet },
-      //   mint({
-      //     contractAddress: "bclkj.mintspace2.testnet",
-      //     metadata: { reference: subscription.image },
-      //     ownerId: account as string,
-      //   })
-      // );
-      setTimeout(async () => {
-        await axios.post("/api/buyer/buySubscription", {
-          address: account,
-          id: subscription._id,
-        });
-        setLoading(false);
-        setSuccess(true);
-      }, 2000);
+      const mintNFT = await execute(
+        { wallet },
+        mint({
+          contractAddress: subscription.NFTAddress.toLocaleLowerCase(),
+          metadata: { title: "subscription" },
+          noReference: true,
+          noMedia: true,
+          ownerId: account as string,
+        })
+      );
+
+      await axios.post("/api/buyer/buySubscription", {
+        address: account,
+        id: subscription._id,
+      });
+      setLoading(false);
+      setSuccess(true);
     } catch (e) {
       console.log("error at NFTBuyCard.tsx", e);
       setLoading(false);
